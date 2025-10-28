@@ -191,10 +191,12 @@ public class BatchManager {
     private void emitBatchToEventHub(EventDataBatchProxy batch) {
         final int batchEventSize = batch.getCount();
         if (batchEventSize > 0) {
-            try {
+            try {               
                 LOGGER.trace("Sending batch of {} events to Event Hubs", batchEventSize);
+                long startTime = System.nanoTime(); // start pomiaru
                 batch.emit();
-                LOGGER.trace("Sent record batch to Event Hubs");
+                long duration = System.nanoTime() - startTime; // czas wykonania
+                LOGGER.trace("Sent record batch to Event Hubs in {} ms", duration / 1_000_000);
             }
             catch (Exception e) {
                 throw new DebeziumException(e);
