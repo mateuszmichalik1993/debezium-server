@@ -193,9 +193,9 @@ public class BatchManager {
         if (batchEventSize > 0) {
             try {               
                 LOGGER.trace("Sending batch of {} events to Event Hubs", batchEventSize);
-                long startTime = System.nanoTime(); // start pomiaru
+                long startTime = System.nanoTime();
                 batch.emit();
-                long duration = System.nanoTime() - startTime; // czas wykonania
+                long duration = System.nanoTime() - startTime;
                 LOGGER.trace("Sent record batch to Event Hubs in {} ms", duration / 1_000_000);
             }
             catch (Exception e) {
